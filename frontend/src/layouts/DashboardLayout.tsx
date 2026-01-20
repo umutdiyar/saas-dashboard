@@ -1,7 +1,10 @@
 import { Outlet, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/features/auth/AuthContext";
 
 export function DashboardLayout() {
+  const { logout } = useAuth();
+
   return (
     <div className="flex min-h-screen bg-zinc-100">
       {/* Sidebar */}
@@ -27,8 +30,8 @@ export function DashboardLayout() {
           <div className="text-sm font-medium text-zinc-600">
             Dashboard Overview
           </div>
-          <Button size="sm" variant="outline">
-            Profile
+          <Button size="sm" variant="outline" onClick={logout}>
+            Çıkış Yap
           </Button>
         </header>
 
