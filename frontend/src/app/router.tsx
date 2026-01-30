@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { DashboardLayout } from "@/layouts/DashboardLayout";
 import { PublicLayout } from "@/layouts/PublicLayout";
-import { AuthGuard } from "@/hooks/useAuthGuard";
+import { AuthGuard } from "@/app/AuthGuard";
 
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { DashboardPage } from "@/pages/dashboard/DashboardPage";
