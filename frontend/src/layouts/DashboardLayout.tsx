@@ -2,11 +2,20 @@ import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+
 import { LayoutDashboard, Home, ChevronLeft, ChevronRight } from "lucide-react";
+import { useAuth } from "@/features/auth/AuthContext";
+import { useOrg } from "@/features/organization/OrgContext";
+import { NAV_ITEMS } from "@/app/nav";
+import { OrgSwitcher } from "@/features/organization/OrgSwitcher";
 
 export function DashboardLayout() {
   const [collapsed, setCollapsed] = React.useState(false);
   const location = useLocation();
+
+  const { auth } = useAuth();
+  const { orgs, activeOrg, setActiveOrgById } = useOrg();
+  const role = auth.user?.role ?? "user";
 
   const sidebarWidth = collapsed ? 72 : 242;
 
@@ -21,7 +30,7 @@ export function DashboardLayout() {
         {/* Brand + Toggle */}
         <div className="flex h-14 items-center justify-between px-3">
           <div className="flex min-w-0 items-center gap-2">
-            <div className="h-6 w-6 shrink-0 rounded-xl bg-zinc-900" />
+            <div className="h-8 w-8 shrink-0 rounded-xl bg-zinc-900" />
             {!collapsed && (
               <div className="truncate text-sm font-semibold tracking-tight">
                 SaaS Dashboard
@@ -45,23 +54,32 @@ export function DashboardLayout() {
           </Button>
         </div>
 
+        {/* Org Switcher (BRAND'İN HEMEN ALTINA) */}
+        <div className="px-2 pb-2">
+          <OrgSwitcher collapsed={collapsed} />
+        </div>
+
         {/* Nav */}
         <nav className="px-2 pb-3 pt-2">
           <div className="space-y-1">
-            <NavItem
-              collapsed={collapsed}
-              to="/app"
-              label="Dashboard"
-              icon={<LayoutDashboard className="h-4 w-4" />}
-              active={location.pathname === "/app"}
-            />
-            <NavItem
-              collapsed={collapsed}
-              to="/"
-              label="Landing"
-              icon={<Home className="h-4 w-4" />}
-              active={location.pathname === "/"}
-            />
+            {NAV_ITEMS.filter((i) => !i.roles || i.roles.includes(role)).map(
+              (item) => {
+                const Icon = item.icon;
+                return (
+                  <NavItem
+                    key={item.key}
+                    collapsed={collapsed}
+                    to={item.to}
+                    label={item.label}
+                    icon={<Icon className="h-4 w-4" />}
+                    active={
+                      location.pathname === item.to ||
+                      location.pathname.startsWith(item.to + "/")
+                    }
+                  />
+                );
+              },
+            )}
           </div>
         </nav>
       </motion.aside>
