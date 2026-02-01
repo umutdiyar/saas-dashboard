@@ -13,9 +13,21 @@ export function DashboardLayout() {
   const [collapsed, setCollapsed] = React.useState(false);
   const location = useLocation();
 
+  const isActive = (to: string) => {
+    if (to === "/app") return location.pathname === "/app";
+    return location.pathname === to || location.pathname.startsWith(to + "/");
+  };
+
   const { auth } = useAuth();
   const { orgs, activeOrg, setActiveOrgById } = useOrg();
   const role = auth.user?.role ?? "user";
+
+  const plan = activeOrg.plan;
+  const canShow = (item: (typeof NAV_ITEMS)[number]) => {
+    const roleOk = !item.roles || item.roles.includes(role);
+    const planOk = !item.plans || (plan && item.plans.includes(plan));
+    return roleOk && planOk;
+  };
 
   const sidebarWidth = collapsed ? 72 : 242;
 
@@ -42,7 +54,7 @@ export function DashboardLayout() {
             variant="ghost"
             size="sm"
             onClick={() => setCollapsed((v) => !v)}
-            className="h-9 w-9 p-0"
+            className="h-9 w-9 p-0 ml-6"
             aria-label="Toggle sidebar"
             title="Toggle sidebar"
           >
@@ -62,24 +74,20 @@ export function DashboardLayout() {
         {/* Nav */}
         <nav className="px-2 pb-3 pt-2">
           <div className="space-y-1">
-            {NAV_ITEMS.filter((i) => !i.roles || i.roles.includes(role)).map(
-              (item) => {
-                const Icon = item.icon;
-                return (
-                  <NavItem
-                    key={item.key}
-                    collapsed={collapsed}
-                    to={item.to}
-                    label={item.label}
-                    icon={<Icon className="h-4 w-4" />}
-                    active={
-                      location.pathname === item.to ||
-                      location.pathname.startsWith(item.to + "/")
-                    }
-                  />
-                );
-              },
-            )}
+            {NAV_ITEMS.filter(canShow).map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <NavItem
+                  key={item.key}
+                  collapsed={collapsed}
+                  to={item.to}
+                  label={item.label}
+                  icon={<Icon className="h-4 w-4" />}
+                  active={isActive(item.to)}
+                />
+              );
+            })}
           </div>
         </nav>
       </motion.aside>

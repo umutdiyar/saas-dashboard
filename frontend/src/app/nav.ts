@@ -6,6 +6,7 @@ export type navItems = {
   to: string;
   icon: any;
   roles?: Array<"admin" | "user">;
+  plans?: Array<"free" | "pro" | "enterprise">;
 };
 
 export const NAV_ITEMS: navItems[] = [
@@ -15,6 +16,7 @@ export const NAV_ITEMS: navItems[] = [
     to: "/app",
     icon: LayoutDashboard,
     roles: ["admin", "user"],
+    plans: ["free", "pro", "enterprise"],
   },
   {
     key: "users",
@@ -22,6 +24,7 @@ export const NAV_ITEMS: navItems[] = [
     to: "/app/users",
     icon: Users,
     roles: ["admin"],
+    plans: ["pro", "enterprise"],
   },
   {
     key: "billing",
@@ -29,6 +32,7 @@ export const NAV_ITEMS: navItems[] = [
     to: "/app/billing",
     icon: CreditCard,
     roles: ["admin"],
+    plans: ["pro", "enterprise"],
   },
   {
     key: "settings",
@@ -36,5 +40,6 @@ export const NAV_ITEMS: navItems[] = [
     to: "/app/settings",
     icon: Settings,
     roles: ["admin", "user"],
+    plans: ["free", "pro", "enterprise"],
   },
 ];
