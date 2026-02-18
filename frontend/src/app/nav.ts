@@ -1,12 +1,23 @@
-import { CreditCard, LayoutDashboard, Settings, Users } from "lucide-react";
+import {
+  CreditCard,
+  LayoutDashboard,
+  Settings,
+  Users,
+  Bell,
+  User,
+  Shield,
+} from "lucide-react";
+
+export type Role = "admin" | "user";
+export type Plan = "free" | "pro" | "enterprise";
 
 export type navItems = {
   key: string;
   label: string;
   to: string;
   icon: any;
-  roles?: Array<"admin" | "user">;
-  plans?: Array<"free" | "pro" | "enterprise">;
+  roles?: Role[];
+  plans?: Plan[];
 };
 
 export const NAV_ITEMS: navItems[] = [
@@ -19,8 +30,22 @@ export const NAV_ITEMS: navItems[] = [
     plans: ["free", "pro", "enterprise"],
   },
   {
+    key: "notifications",
+    label: "Bildirimler",
+    to: "/app/notifications",
+    icon: Bell,
+    roles: ["admin", "user"],
+  },
+  {
+    key: "profile",
+    label: "Profil",
+    to: "/app/profile",
+    icon: User,
+    roles: ["admin", "user"],
+  },
+  {
     key: "users",
-    label: "Users",
+    label: "Kullanıcılar",
     to: "/app/users",
     icon: Users,
     roles: ["admin"],
@@ -28,15 +53,23 @@ export const NAV_ITEMS: navItems[] = [
   },
   {
     key: "billing",
-    label: "Billing",
+    label: "Faturalandırma",
     to: "/app/billing",
     icon: CreditCard,
     roles: ["admin"],
     plans: ["pro", "enterprise"],
   },
   {
+    key: "audit",
+    label: "Denetim Günlükleri",
+    to: "/app/audit-logs",
+    icon: Shield,
+    roles: ["admin"],
+    plans: ["enterprise"],
+  },
+  {
     key: "settings",
-    label: "Settings",
+    label: "Ayarlar",
     to: "/app/settings",
     icon: Settings,
     roles: ["admin", "user"],

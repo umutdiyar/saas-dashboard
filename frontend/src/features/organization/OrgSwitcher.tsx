@@ -43,13 +43,15 @@ export function OrgSwitcher({ collapsed }: { collapsed?: boolean }) {
                 <div className="truncate text-sm font-medium">
                   {activeOrg.name}
                 </div>
-                <div className="text-xs text-zinc-500">
+                <div className="text-xs text-muted-foreground">
                   {activeOrg.plan.toUpperCase()}
                 </div>
               </div>
             )}
           </div>
-          {!collapsed && <ChevronsUpDown className="h-4 w-4 text-zinc-500" />}
+          {!collapsed && (
+            <ChevronsUpDown className="h-4 w-4 text-muted-foreground" />
+          )}
         </Button>
       </DropdownMenuTrigger>
 
@@ -73,7 +75,7 @@ export function OrgSwitcher({ collapsed }: { collapsed?: boolean }) {
                 </Avatar>
                 <div className="leading-tight">
                   <div className="text-sm">{org.name}</div>
-                  <div className="text-xs text-zinc-500">
+                  <div className="text-xs text-muted-foreground">
                     {org.plan.toUpperCase()}
                   </div>
                 </div>

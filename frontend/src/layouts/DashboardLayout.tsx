@@ -32,15 +32,15 @@ export function DashboardLayout() {
   const sidebarWidth = collapsed ? 72 : 242;
 
   return (
-    <div className="flex min-h-screen bg-zinc-100">
+    <div className="flex min-h-screen bg-background">
       {/* Sidebar */}
       <motion.aside
         animate={{ width: sidebarWidth }}
         transition={{ duration: 0.22, ease: "easeOut" }}
-        className="shrink-0 border-r border-zinc-200 bg-white"
+        className="shrink-0 border-r border-zinc-200 bg-card"
       >
         {/* Brand + Toggle */}
-        <div className="flex h-14 items-center justify-between px-3">
+        <div className="flex h-14 items-center justify-between px-3 ">
           <div className="flex min-w-0 items-center gap-2">
             <div className="h-8 w-8 shrink-0 rounded-xl bg-zinc-900" />
             {!collapsed && (
@@ -94,7 +94,7 @@ export function DashboardLayout() {
 
       {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex h-14 items-center justify-between border-b border-zinc-200 bg-white px-6">
+        <header className="flex h-14 items-center justify-between border-b border-border bg-card px-6">
           <div className="text-sm font-medium text-zinc-600">Overview</div>
 
           <div className="flex items-center gap-2">
@@ -132,13 +132,15 @@ function NavItem({
       className={[
         "group flex items-center gap-3 rounded-xl px-3 py-2 text-sm mb-2 transition-colors",
         "focus:outline-none focus:ring-2 focus:ring-zinc-300",
-        active ? "bg-zinc-900 text-white" : "text-zinc-700 hover:bg-zinc-100",
+        active
+          ? "bg-primary text-primary-foreground"
+          : "text-foreground hover:bg-muted",
       ].join(" ")}
     >
       <span
         className={[
           "grid h-8 w-8 place-items-center rounded-lg transition-colors",
-          active ? "bg-white/10" : "bg-zinc-100 group-hover:bg-zinc-200",
+          active ? "bg-white/10" : "bg-muted group-hover:bg-accent",
         ].join(" ")}
       >
         {icon}

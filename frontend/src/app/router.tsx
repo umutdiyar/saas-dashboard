@@ -6,9 +6,13 @@ import { AuthGuard } from "@/app/AuthGuard";
 import { LoginPage } from "@/pages/auth/LoginPage";
 import { DashboardPage } from "@/pages/dashboard/DashboardPage";
 import { LandingPage } from "@/pages/landing/LandingPage";
+
+import { NotificationsPage } from "@/pages/dashboard/NotificationsPage";
+import { ProfilePage } from "@/pages/dashboard/ProfilePage";
 import { SettingsPage } from "@/pages/dashboard/SettingsPage";
-import { BillingPage } from "@/pages/dashboard/BillingPage";
+import { AuditLogsPage } from "@/pages/dashboard/AuditLogsPage";
 import { UsersPage } from "@/pages/dashboard/UsersPage";
+import { BillingPage } from "@/pages/dashboard/BillingPage";
 
 export const router = createBrowserRouter([
   {
@@ -27,6 +31,9 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <DashboardPage /> },
+      { path: "notifications", element: <NotificationsPage /> },
+      { path: "profile", element: <ProfilePage /> },
+      { path: "settings", element: <SettingsPage /> },
       { path: "users", element: <UsersPage /> },
       { path: "settings", element: <SettingsPage /> },
       { path: "billing", element: <BillingPage /> },
