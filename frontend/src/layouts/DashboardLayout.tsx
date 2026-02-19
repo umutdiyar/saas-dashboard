@@ -2,12 +2,13 @@ import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-
 import { LayoutDashboard, Home, ChevronLeft, ChevronRight } from "lucide-react";
 import { useAuth } from "@/features/auth/AuthContext";
 import { useOrg } from "@/features/organization/OrgContext";
 import { NAV_ITEMS } from "@/app/nav";
 import { OrgSwitcher } from "@/features/organization/OrgSwitcher";
+import { dictionary } from "@/features/settings/dictionary";
+import { useSettings } from "@/features/settings/SettingContext";
 
 export function DashboardLayout() {
   const [collapsed, setCollapsed] = React.useState(false);
@@ -30,6 +31,9 @@ export function DashboardLayout() {
   };
 
   const sidebarWidth = collapsed ? 72 : 242;
+
+  const { settings } = useSettings();
+  const t = dictionary[settings.language];
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -82,7 +86,7 @@ export function DashboardLayout() {
                   key={item.key}
                   collapsed={collapsed}
                   to={item.to}
-                  label={item.label}
+                  label={t[item.key as keyof typeof t]}
                   icon={<Icon className="h-4 w-4" />}
                   active={isActive(item.to)}
                 />

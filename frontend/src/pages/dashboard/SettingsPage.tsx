@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useSettings } from "@/features/settings/SettingContext";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 export function SettingsPage() {
   const { settings, setLanguage, setTheme, setEmailNotifications } =
@@ -63,12 +64,12 @@ export function SettingsPage() {
       <section className="rounded-xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-5">
         <h2 className="text-sm font-semibold">Bildirimler</h2>
         <div className="mt-3 flex items-center justify-between">
-          <div className="text-sm text-zinc-600">Email bildirimleri</div>
-          <input
-            type="checkbox"
+          <div className="text-sm text-muted-foreground">
+            Email bildirimleri
+          </div>
+          <Switch
             checked={settings.emailNotifications}
-            onChange={(e) => setEmailNotifications(e.target.checked)}
-            className="h-4 w-4"
+            onCheckedChange={setEmailNotifications}
           />
         </div>
       </section>

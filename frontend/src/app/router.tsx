@@ -10,6 +10,7 @@ import { LandingPage } from "@/pages/landing/LandingPage";
 import { NotificationsPage } from "@/pages/dashboard/NotificationsPage";
 import { ProfilePage } from "@/pages/dashboard/ProfilePage";
 import { SettingsPage } from "@/pages/dashboard/SettingsPage";
+import { PlanGuard } from "./PlanGuard";
 import { AuditLogsPage } from "@/pages/dashboard/AuditLogsPage";
 import { UsersPage } from "@/pages/dashboard/UsersPage";
 import { BillingPage } from "@/pages/dashboard/BillingPage";
@@ -37,6 +38,14 @@ export const router = createBrowserRouter([
       { path: "users", element: <UsersPage /> },
       { path: "settings", element: <SettingsPage /> },
       { path: "billing", element: <BillingPage /> },
+      {
+        path: "audit-logs",
+        element: (
+          <PlanGuard required="enterprise">
+            <AuditLogsPage />
+          </PlanGuard>
+        ),
+      },
     ],
   },
 ]);
